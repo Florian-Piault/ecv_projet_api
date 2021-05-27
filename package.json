@@ -5,7 +5,7 @@
   "main": "server.js",
   "scripts": {
     "test": "echo \"Error: no test specified\" && exit 1",
-    "start": "nodemon server.js"
+    "start": "nodemon script.js"
   },
   "keywords": [
     "api",
@@ -14,8 +14,17 @@
   "author": "Florian PIAULT",
   "license": "MIT",
   "dependencies": {
+    "discord.js": "^12.5.3",
     "dotenv": "^8.2.0",
     "express": "^4.17.1",
     "nodemon": "^2.0.7"
-  }
+  },
+  "repository": {
+    "type": "git",
+    "url": "git+https://github.com/Florian-Piault/ecv_projet_api.git"
+  },
+  "bugs": {
+    "url": "https://github.com/Florian-Piault/ecv_projet_api/issues"
+  },
+  "homepage": "https://github.com/Florian-Piault/ecv_projet_api#readme"
 }
