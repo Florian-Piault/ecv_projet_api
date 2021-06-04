@@ -45,4 +45,12 @@ function helpGif(channel) {
 	channel.send(message);
 }
 
-module.exports = { allCommands, oneCommand };
+function helpPokemon(channel) {
+	let message = new Discord.MessageEmbed();
+	message.setTitle('!pp pokemon [keyword]:');
+	message.setColor([51, 175, 255]);
+	message.setDescription(['Information about pokemon']);
+	channel.send(message);
+}
+
+module.exports = { allCommands, oneCommand, helpPokemon };

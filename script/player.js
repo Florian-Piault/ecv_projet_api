@@ -1,4 +1,3 @@
-const Discord = require('discord.js');
 const Ytdl = require('ytdl-core');
 
 class PlayerClass {
@@ -20,7 +19,7 @@ class PlayerClass {
 				'I need the permissions to join and speak in your voice channel!',
 			);
 		}
-		
+
 		const songInfo = await Ytdl.getInfo(args[2]);
 		const song = {
 			title: songInfo.videoDetails.title,
@@ -53,7 +52,8 @@ class PlayerClass {
 				// Printing the error message if the bot fails to join the voicechat
 				this.queue.delete(message.guild.id);
 				message.channel.send('could not join voice chat');
-				console.log(err);``
+				console.log(err);
+				``;
 			}
 		} else {
 			this.queue.songs.push(song);

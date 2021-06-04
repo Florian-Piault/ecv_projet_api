@@ -2,6 +2,7 @@ const fetch = require('node-fetch');
 const Helper = require('./helper');
 const Error = require('./error');
 const PlayerClass = require('./player');
+const Pokemon = require('./pokemon');
 
 const Player = new PlayerClass();
 
@@ -24,17 +25,24 @@ function checkCommand(channel, command, msg) {
 
 	switch (options[0]) {
 		case 'gif':
-			options[1]
+			options.length > 1
 				? sendGif(channel, options[1])
 				: Error.noOption(channel, 'gif');
 			break;
 		case 'help':
-			options[1]
+			options.length > 1
 				? Helper.oneCommand(channel, options[1])
 				: Helper.allCommands(channel);
 			break;
 		case 'play':
-			options[1] ? Player.execute(msg) : Error.noOption(channel, 'play');
+			options.length > 1
+				? Player.execute(msg)
+				: Error.noOption(channel, 'play');
+			break;
+		case 'pokemon':
+			options.length > 1
+				? Pokemon.getInfo(channel, options)
+				: Helper.helpPokemon(channel);
 			break;
 		default:
 			Error.noCommand(channel, options[0]);
