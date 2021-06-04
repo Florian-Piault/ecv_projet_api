@@ -1,5 +1,9 @@
 const fetch = require('node-fetch');
 const Helper = require('./helper');
+const Error = require('./error');
+const PlayerClass = require('./player');
+
+const Player = new PlayerClass();
 
 // COMMAND LIKE '!pp something'
 const START_CMD = new RegExp(/^!pp\s{1}[a-zA-Z]*/);
@@ -10,27 +14,30 @@ function checkMessage(msg) {
 		const CMD = msg.content.slice(4, msg.content.length);
 		const CHANNEL = msg.channel;
 
-		checkCommand(CHANNEL, CMD);
+		checkCommand(CHANNEL, CMD, msg);
 	}
 }
 
 // CHECK WHICH COMMAND WAS SELECTED
-function checkCommand(channel, command) {
+function checkCommand(channel, command, msg) {
 	const options = command.split(' ');
 
 	switch (options[0]) {
 		case 'gif':
 			options[1]
 				? sendGif(channel, options[1])
-				: channel.send('No option given for the **!pp gif** command');
+				: Error.noOption(channel, 'gif');
 			break;
 		case 'help':
 			options[1]
 				? Helper.oneCommand(channel, options[1])
 				: Helper.allCommands(channel);
 			break;
+		case 'play':
+			options[1] ? Player.execute(msg) : Error.noOption(channel, 'play');
+			break;
 		default:
-			channel.send(`Command **${options[0]}** doesn't exist`);
+			Error.noCommand(channel, options[0]);
 			break;
 	}
 }
@@ -42,7 +49,7 @@ function sendGif(channel, keyword) {
 		.then((res) => res.json())
 		.then((json) => channel.send(json.results[randomNumber].url))
 		.then(() => channel.send(`GIF by Tenor: **${keyword}**`))
-		.catch((err) => console.error('Could not fetch gif', err));
+		.catch((err) => channel.send('Could not fetch gif', err));
 }
 
 module.exports = { checkMessage };
