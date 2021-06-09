@@ -10,7 +10,7 @@ async function getInfo(channel, options) {
 	const weight = pokemon.weight / 10;
 	const height = pokemon.height / 10;
 	const types = pokemon.types.map((t) => t.type.name);
-	const sprites = pokemon.other['official-artwork'].front_default;
+	const sprites = pokemon.sprites.other['official-artwork'].front_default;
 
 	// MESSAGE_EMBED
 	let message = new Discord.MessageEmbed();
