@@ -5,7 +5,11 @@ function allCommands(channel) {
 	let message = new Discord.MessageEmbed();
 	message.setTitle('Available commands :');
 	message.setColor([51, 175, 255]);
-	message.setDescription(['!pp gif [keyword]', '!pp help [keyword]']);
+	message.setDescription([
+		'!pp gif [keyword]',
+		'!pp pokemon [name|number]',
+		'!pp help [keyword]',
+	]);
 
 	channel.send(message).then((msg) => {
 		msg.react('◀️');
