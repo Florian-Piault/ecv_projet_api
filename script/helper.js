@@ -7,6 +7,7 @@ function allCommands(channel) {
 	message.setColor([51, 175, 255]);
 	message.setDescription([
 		'!pp gif [keyword]',
+		'!pp play [youtube link]',
 		'!pp pokemon [name|number]',
 		'!pp help [keyword]',
 	]);
@@ -32,6 +33,12 @@ function oneCommand(channel, command) {
 		case 'gif':
 			helpGif(channel);
 			break;
+		case 'pokemon':
+			helpPokemon(channel);
+			break;
+		case 'play':
+			helpPlay(channel);
+			break;
 		default:
 			channel.send(`Option **${command}** doesn't exist`);
 			break;
@@ -42,18 +49,28 @@ function oneCommand(channel, command) {
 
 // AIDE GIF
 function helpGif(channel) {
-	let message = new Discord.MessageEmbed();
+	const message = new Discord.MessageEmbed();
 	message.setTitle('!pp gif [keyword]:');
 	message.setColor([51, 175, 255]);
 	message.setDescription(['Send a **keyword**-related GIF']);
 	channel.send(message);
 }
 
+// AIDE POKEMON
 function helpPokemon(channel) {
-	let message = new Discord.MessageEmbed();
+	const message = new Discord.MessageEmbed();
 	message.setTitle('!pp pokemon [keyword]:');
 	message.setColor([51, 175, 255]);
 	message.setDescription(['Information about pokemon']);
+	channel.send(message);
+}
+
+// AIDE PLAY
+function helpPlay(channel){
+	const message = new Discord.MessageEmbed();
+	message.setTitle('!pp play [youtube link]:');
+	message.setColor([51, 175, 255]);
+	message.setDescription(['Play the sound of a Youtube video']);
 	channel.send(message);
 }
 

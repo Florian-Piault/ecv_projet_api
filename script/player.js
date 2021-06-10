@@ -71,7 +71,6 @@ class PlayerClass {
 		}
 		console.log(song);
 		const dispatcher = serverQueue.connection
-			// .play('http://www.sample-videos.com/audio/mp3/wave.mp3');
 			.play(Ytdl(song.url, {filter: "audioonly",fmt: "mp3"}))
 			.on('finish', () => {
 				serverQueue.songs.shift();

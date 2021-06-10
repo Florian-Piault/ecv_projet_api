@@ -25,16 +25,19 @@ function checkCommand(channel, command, msg) {
 
 	switch (options[0]) {
 		case 'gif':
+		case 'g':
 			options.length > 1
 				? sendGif(channel, options[1])
 				: Error.noOption(channel, 'gif');
 			break;
 		case 'help':
+		case 'h':
 			options.length > 1
 				? Helper.oneCommand(channel, options[1])
 				: Helper.allCommands(channel);
 			break;
 		case 'play':
+		case 'p':
 			options.length > 1
 				? Player.execute(msg)
 				: Error.noOption(channel, 'play');
