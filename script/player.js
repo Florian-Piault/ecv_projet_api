@@ -1,4 +1,4 @@
-const Ytdl = require('ytdl-core');
+const Ytdl = require('discord-ytdl-core');
 
 class PlayerClass {
 	constructor() {
@@ -53,11 +53,10 @@ class PlayerClass {
 				this.queue.delete(message.guild.id);
 				message.channel.send('could not join voice chat');
 				console.log(err);
-				``;
 			}
 		} else {
 			this.queue.songs.push(song);
-			console.log(this.queue.songs);
+			// console.log(this.queue.songs);
 			return message.channel.send(`${song.title} has been added to the queue!`);
 		}
 	}
@@ -70,16 +69,21 @@ class PlayerClass {
 			this.queue.delete(guild.id);
 			return;
 		}
+		console.log(song);
 		const dispatcher = serverQueue.connection
-			.play(Ytdl(song.url))
+			// .play('http://www.sample-videos.com/audio/mp3/wave.mp3');
+			.play(Ytdl(song.url, {filter: "audioonly",fmt: "mp3"}))
 			.on('finish', () => {
 				serverQueue.songs.shift();
 				this.play(guild, serverQueue.songs[0]);
-				// message.channel.send('play');
+				serverQueue.textChannel.send('Music\'s over');
 			})
-			.on('error', (error) => console.error(error));
+			.on('error', (error) => {
+				serverQueue.textChannel.send('An error occured sorry');
+				console.error('error in play', error)
+			});
 		dispatcher.setVolumeLogarithmic(serverQueue.volume / 5);
-		// serverQueue.textChannel.send(`Start playing: **${song.title}**`);
+		serverQueue.textChannel.send(`Start playing: **${song.title}**`);
 	}
 }
 
